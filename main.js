@@ -1,5 +1,3 @@
-let http = require('http');
-let bl = require('bl');
 let fs = require('fs');
 let request = require('request');
 let cheerio = require('cheerio')
@@ -38,6 +36,14 @@ request(baseUrl, function (error, response, body) {
 				resultsArray[i - 1] = currentRowArray;
 			}
 		});
-		//TODO: Serialize resultsArray
+		let output = JSON.stringify(resultsArray);
+		fs.writeFile("output.JSON", output, function (err) {
+			if (err) {
+				console.log("ERROR: " + err.message)
+			}
+			else {
+				console.log("SUCCESS: wrote data to output.JSON");
+			}
+		});
 	}
 });
