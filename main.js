@@ -2,6 +2,9 @@ let fs = require('fs');
 let request = require('request');
 let cheerio = require('cheerio')
 
+//TODO: remove "-" from output
+//TODO: write teams to output obj as well
+
 let baseUrl = 'http://en.wikipedia.org/w/api.php?action=parse&page=2016%E2%80%9317_Premier_League&prop=text&section=9&format=json';
 
 request(baseUrl, function (error, response, body) {
