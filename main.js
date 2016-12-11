@@ -6,51 +6,38 @@ let cheerio = require('cheerio')
 
 let baseUrl = 'http://en.wikipedia.org/w/api.php?action=parse&page=2016%E2%80%9317_Premier_League&prop=text&section=9&format=json';
 
-request(baseUrl, function(error, response, body) {
+request(baseUrl, function (error, response, body) {
 	if (!error && response.statusCode == 200) {
-		
-		let result = JSON.parse(body)
-		let rawHtml = result.parse.text["*"]
-		// ExtractData(rawHtml)
-		// console.log(result.parse.text["*"])
-		let $ = cheerio.load(rawHtml)
+		let result = JSON.parse(body);
+		let rawHtml = result.parse.text["*"];
+		let $ = cheerio.load(rawHtml);
 
-		$('td').each(function(i, td) {
-			// if (i == 3)
-			// {
-			// 	console.log(td.lastChild.lastChild.data)
-			// }
-			if (td.lastChild != null)
-			{
-				if (td.lastChild.lastChild != null)
-				{
-					let data = td.lastChild.lastChild.data
-					if (data != "a")
-					{
-						console.log(td.lastChild.lastChild.data)
-					}
-					else{
-						console.log(null)
-					}
-					
-				}
-				else if ( !!td.lastChild.data)
-				{
-					console.log(td.lastChild.data)
-				}
-				else
-				{
-					console.log(null)
-				}
-				
-			}
-			else
-			{
-				console.log(null)
-			}
-				
-		})
-		console.log($('tr').length -1)
+		// -1 to acount for header
+		let rowCount = $('tr').length - 1;
+		let resultsArray = new Array(rowCount);
 
+		$('tr').each(function (i, tr) {
+			if (i != 0) {
+				let $$ = cheerio.load(tr);
+				let currentRowArray = new Array(rowCount);
+				$$('td').each(function (j, td) {
+					let result = null;
+					if (td.lastChild != null) {
+						if (td.lastChild.lastChild != null) {
+							let data = td.lastChild.lastChild.data;
+							if (data != "a") {
+								result = data;
+							}
+						}
+						else if (!!td.lastChild.data) {
+							result = td.lastChild.data;
+						}
+					}
+					currentRowArray[j] = result;
+				});
+				resultsArray[i - 1] = currentRowArray;
+			}
+		});
+		//TODO: Serialize resultsArray
 	}
-})
+});
