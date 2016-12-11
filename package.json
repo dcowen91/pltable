@@ -1,0 +1,23 @@
+{
+  "name": "pltable",
+  "version": "1.0.0",
+  "description": "pull pl table",
+  "main": "main.js",
+    "dependencies": {
+    "bl": "^1.0.0",
+    "http": "^0.0.0",
+    "request": "^2.79.0"
+  },
+  "scripts": {
+    "test": "node"
+  },
+  "repository": {
+    "type": "git",
+    "url": "na"
+  },
+  "keywords": [
+    "derp"
+  ],
+  "author": "drew",
+  "license": "ISC"
+}
