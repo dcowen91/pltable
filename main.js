@@ -2,7 +2,7 @@ let fs = require('fs');
 let request = require('request');
 let cheerio = require('cheerio');
 
-//TODO: pull team names from row header
+//TODO: pull team names from row headers
 
 var _TeamNameToIndexMapping = {
 	"ARSENAL" : 0,  
@@ -50,7 +50,7 @@ var _TeamNamesByIndex = [
 	"WEST HAM UNITED"
 	];
 
-let baseUrl = 'http://en.wikipedia.org/w/api.php?action=parse&page=2016%E2%80%9317_Premier_League&prop=text&section=10&format=json';
+let baseUrl = 'http://en.wikipedia.org/w/api.php?action=parse&page=2016%E2%80%9317_Premier_League&prop=text&section=9&format=json';
 
 function transformResult(result) {
 	if (!!result && result == "—") {
